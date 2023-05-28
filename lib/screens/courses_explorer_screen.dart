@@ -66,7 +66,6 @@ class CoursesExplorer extends StatelessWidget {
               itemBuilder: (context, index) => ChangeNotifierProvider.value(
                 value: coursesList[index],
                 child: CoursesCard(
-                  backgroundColor: coursesList[index].cardColor,
                   course: coursesList[index],
                 ),
               ),

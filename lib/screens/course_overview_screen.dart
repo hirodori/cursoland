@@ -15,6 +15,8 @@ class CoursesOverviewScreen extends StatelessWidget {
 
     final courseId = ModalRoute.of(context)?.settings.arguments as String;
     var course = Provider.of<CoursesManeger>(context).findCourseById(courseId);
+    var nome = Provider.of<CoursesManeger>(context).nome;
+
     durationCourse = course.timeLectures.inMinutes.toString();
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 17, 17, 17),

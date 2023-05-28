@@ -3,8 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CoursesManeger with ChangeNotifier {
+  String? nome;
+  void changeNaME(String novoNome) {
+    nome = novoNome;
+    notifyListeners();
+  }
+
   final List<Course> _courses = [
     Course(
+        teacher: 'Kernel',
         descrpition: '',
         cardColor: Colors.red,
         id: 'c1',
@@ -13,6 +20,7 @@ class CoursesManeger with ChangeNotifier {
         timeLectures: Duration(hours: 15),
         typeCourse: TypeCourse.Desing),
     Course(
+        teacher: 'Kernel',
         descrpition: '',
         cardColor: Color.fromARGB(255, 211, 203, 38),
         id: 'c2',
@@ -21,6 +29,7 @@ class CoursesManeger with ChangeNotifier {
         timeLectures: Duration(hours: 15),
         typeCourse: TypeCourse.Programing),
     Course(
+        teacher: 'Kernel',
         descrpition: '',
         cardColor: Colors.green,
         id: 'c3',
@@ -29,6 +38,7 @@ class CoursesManeger with ChangeNotifier {
         timeLectures: Duration(hours: 15),
         typeCourse: TypeCourse.Programing),
     Course(
+        teacher: 'Kernel',
         descrpition: '',
         cardColor: Color.fromARGB(255, 89, 98, 201),
         id: 'c4',

@@ -10,9 +10,12 @@ class Course with ChangeNotifier {
   final TypeCourse typeCourse;
   final Color cardColor;
   final String descrpition;
+  final String teacher;
+
   Course(
       {this.isActive = false,
       this.isFavorite = false,
+      required this.teacher,
       required this.id,
       required this.descrpition,
       required this.cardColor,

@@ -6,12 +6,13 @@ import 'package:provider/provider.dart';
 import '../modules/provider/course_maneger.dart';
 
 class CoursesCard extends StatelessWidget {
+  //duração e quantidade de aulas
+
   final Course course;
-  final Color backgroundColor;
+
   const CoursesCard({
     Key? key,
     required this.course,
-    required this.backgroundColor,
   }) : super(key: key);
 
   @override
@@ -23,9 +24,10 @@ class CoursesCard extends StatelessWidget {
             .pushNamed(CoursesOverviewScreen.routeName, arguments: course.id);
       },
       child: Card(
-        margin: EdgeInsets.all(15),
         elevation: 20,
-        color: backgroundColor,
+        shadowColor: Color.fromARGB(255, 255, 85, 0),
+        margin: EdgeInsets.all(15),
+        color: course.cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),

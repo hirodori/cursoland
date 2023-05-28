@@ -9,6 +9,7 @@ class CoursesActvated extends Course {
   CoursesActvated(
       {required this.lessonsCompleted,
       required this.timeSpended,
+      required super.teacher,
       required super.id,
       required super.descrpition,
       required super.cardColor,
