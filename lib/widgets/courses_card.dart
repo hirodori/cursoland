@@ -33,14 +33,30 @@ class CoursesCard extends StatelessWidget {
         ),
         child: Container(
           margin: EdgeInsets.all(10),
-          height: 300,
+          height: 200,
           width: 10,
           child: Column(
             children: [
               Text(
                 course.name,
                 style: TextStyle(color: Colors.white, fontSize: 41),
-              )
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  infoCourse(
+                    icon: Icons.book,
+                    courseInfo: course.numberLecture.toString() + ' Lectures',
+                  ),
+                  infoCourse(
+                    courseInfo:
+                        course.timeLectures.inMinutes.toString() + ' min',
+                    icon: Icons.punch_clock,
+                  ),
+                ],
+              ),
+              Text("Teacher: " + course.teacher,
+                  style: TextStyle(color: Colors.white, fontSize: 20)),
             ],
           ),
         ),
