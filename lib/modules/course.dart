@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class Course with ChangeNotifier {
-  final String id;
-  final String name;
-  final int numberLecture;
-  final Duration timeLectures;
-  bool isFavorite;
-  bool isActive;
-  final TypeCourse typeCourse;
-  final Color cardColor;
-  final String descrpition;
-  final String teacher;
+  final String id; //ID do curso, sendo que cada um apresenta um próprio e único
+  final String name; //Nome do curso
+  final int numberLecture; //Número de aulas do curso
+  final Duration timeLectures; //Tempo do curso em horas
+  bool isFavorite; //Booleano se o curso está Favoritado
+  bool isActive; //Booleano se o curso está Ativo
+  final TypeCourse typeCourse; //Tipo do curso
+  final Color cardColor; //Cor do card do curso
+  final String descrpition; //Descrição do curso
+  final String teacher; //Professor(a) do Curso
 
   Course(
       {this.isActive = false,
