@@ -1,5 +1,6 @@
 import 'package:courseland/screens/courses_explorer_screen.dart';
 import 'package:courseland/screens/current_courses_screen.dart';
+import 'package:courseland/screens/focus_mode_screen.dart';
 import 'package:courseland/screens/reports.dart';
 import 'package:courseland/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           CoursesExplorer(),
           CurrentCoursesScreen(),
+          FocusMode(),
           Reports(),
           SettingsScreen(),
         ],
@@ -50,11 +52,12 @@ class _HomePageState extends State<HomePage> {
         iconSize: 28,
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
-        backgroundColor: Color.fromARGB(255, 119, 119, 119),
+        backgroundColor: Color.fromARGB(255, 152, 152, 152),
         selectedItemColor: Colors.black,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Courses'),
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.timer), label: 'Focus'),
           BottomNavigationBarItem(
               icon: Icon(Icons.analytics_rounded), label: 'Analytics'),
           BottomNavigationBarItem(

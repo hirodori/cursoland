@@ -1,3 +1,4 @@
+import 'package:courseland/widgets/bar_chart.dart';
 import 'package:flutter/material.dart';
 
 class Reports extends StatelessWidget {
@@ -8,7 +9,7 @@ class Reports extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.redAccent,
-        body: Text('REPORTS'),
+        body: BarChartSample3(),
       ),
     );
   }

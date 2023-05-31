@@ -61,7 +61,7 @@ class _FocusModeState extends State<FocusMode> {
                 strokeWidth: 10.0,
                 strokeCap: StrokeCap.round,
                 isTimerTextShown: true,
-                isReverse: true,
+                isReverse: false,
                 onComplete: () {
                   //mudar a mensagem e o estilo do dialog
                   //  _dialogBuilder(context);
@@ -95,7 +95,6 @@ class _FocusModeState extends State<FocusMode> {
             onPressed: () {
               setState(() {
                 _controller.reset();
-                _controller.resume();
               });
             },
           )
