@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../modules/provider/course_maneger.dart';
 
 class CoursesOverviewScreen extends StatelessWidget {
-  static const routeName = '/courses-details';
+  static const routeName = '/courses-Overview';
   const CoursesOverviewScreen({Key? key}) : super(key: key);
 
   @override
