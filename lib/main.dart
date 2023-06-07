@@ -1,5 +1,5 @@
 import 'package:courseland/modules/provider/course_maneger.dart';
-import 'package:courseland/screens/course_datails.dart';
+import 'package:courseland/screens/course_details.dart';
 import 'package:courseland/screens/course_overview_screen.dart';
 import 'package:courseland/screens/courses_explorer_screen.dart';
 import 'package:courseland/screens/current_courses_screen.dart';

@@ -1,3 +1,4 @@
+import 'package:courseland/modules/video.dart';
 import 'package:flutter/material.dart';
 
 class Course with ChangeNotifier {
@@ -11,9 +12,12 @@ class Course with ChangeNotifier {
   final Color cardColor; //Cor do card do curso
   final String descrpition; //Descrição do curso
   final String teacher; //Professor(a) do Curso
-
+  final String urlImage; //endereço de uma imagem
+  final List<Video> videoCourse; //videos que serão usados por cada curso
   Course(
       {this.isActive = false,
+      required this.urlImage,
+      required this.videoCourse,
       this.isFavorite = false,
       required this.teacher,
       required this.id,
