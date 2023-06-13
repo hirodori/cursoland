@@ -14,7 +14,8 @@ class CoursesOverviewScreen extends StatelessWidget {
     String durationCourse;
 
     final courseId = ModalRoute.of(context)?.settings.arguments as String;
-    var course = Provider.of<CoursesManeger>(context).findCourseById(courseId);
+    var courseProvider = Provider.of<CoursesManeger>(context);
+    var course = courseProvider.findCourseById(courseId);
     var nome = Provider.of<CoursesManeger>(context).nome;
 
     durationCourse = course.timeLectures.inMinutes.toString();
@@ -144,8 +145,9 @@ class CoursesOverviewScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      print(
-                          'ola'); //adicionar o curso na lista de cursos em andamento
+                      courseProvider.ActivateCourse(courseId);
+
+                      //adicionar o curso na lista de cursos em andamento
 
                       /* CoursesActvated cA = CoursesActvated();
                       cA.courses.add(course);*/
@@ -158,7 +160,7 @@ class CoursesOverviewScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20)),
                       child: Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Text(
@@ -207,6 +209,12 @@ class infoCourse extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(10),
+      width: 135,
+      height: 60,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Color.fromARGB(255, 0, 0, 0),
+      ),
       child: Row(
         children: [
           SizedBox(
@@ -227,12 +235,6 @@ class infoCourse extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           )
         ],
-      ),
-      width: 135,
-      height: 60,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Color.fromARGB(255, 0, 0, 0),
       ),
     );
   }

@@ -28,7 +28,7 @@ class CoursesExplorer extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    'COURSES',
+                    'EXPLORER',
                     style: TextStyle(color: Colors.white, fontSize: 40),
                   ),
                   Row(

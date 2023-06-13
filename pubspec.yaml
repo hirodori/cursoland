@@ -40,6 +40,11 @@ dependencies:
   intl: ^0.18.1
   circular_countdown_timer: ^0.2.3
   fl_chart: ^0.62.0
+  video_player: ^2.6.1
+  chewie: ^1.5.0
+  youtube_player_flutter: ^8.1.2
+  shake: ^2.2.0
+  sensors_plus: ^1.4.1
 
 dev_dependencies:
   flutter_test:

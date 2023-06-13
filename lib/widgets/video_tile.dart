@@ -1,3 +1,5 @@
+import 'package:courseland/modules/video.dart';
+import 'package:courseland/screens/video_player.dart';
 import 'package:flutter/material.dart';
 
 /**[VideoTile] é uma widget que mostra as informações de cada curso, e também ao ser pressionada 
@@ -9,12 +11,16 @@ class VideoTile extends StatelessWidget {
   final String nameVideo;
   final Duration durationVideo;
   final bool seen;
+  final List<Video> allVideos;
+  final int indexVideo;
   VideoTile(
       {Key? key,
       required this.color,
       required this.nameVideo,
       required this.durationVideo,
-      required this.seen})
+      required this.seen,
+      required this.allVideos,
+      required this.indexVideo})
       : super(key: key);
 
   @override
@@ -32,7 +38,16 @@ class VideoTile extends StatelessWidget {
     }
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        //Ao clicar o usuario será direcionada para o video correspondente
+        //Usamos a lista com todos os videos e localizamos o do index desejado
+        //E com isso obtemos o url para rodar o video
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VideoPlayer(url: allVideos[indexVideo].url),
+            ));
+      },
       child: Container(
         margin: EdgeInsets.all(5),
         padding: EdgeInsets.all(8),

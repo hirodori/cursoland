@@ -2,7 +2,15 @@
 
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:sensors_plus/sensors_plus.dart';
+import 'package:shake/shake.dart';
 
+/**Mostra um timer que pode ter seu tempo definido conforme os pre-sets.
+ * Com ele o usuário escolhe um tempo para estudar.
+ * E com isso caso a pessoa tente mexer no celular, o programa identifica se ouve movimento
+ * e mostra uma mensagem de alerta
+ * 
+ */
 class FocusMode extends StatefulWidget {
   const FocusMode({Key? key}) : super(key: key);
 
@@ -11,6 +19,45 @@ class FocusMode extends StatefulWidget {
 }
 
 class _FocusModeState extends State<FocusMode> {
+  late ShakeDetector detector;
+  @override
+  void initState() {
+    super.initState();
+    bool flag = true;
+    userAccelerometerEvents.listen(
+      (UserAccelerometerEvent event) {
+        /*  print('x' + event.x.toString());
+        print('z' + event.z.toString());
+        print('y' + event.y.toString());*/
+
+        if ((event.x > 0.5 || event.y > 0.5 || event.z > 0.5) && flag) {
+          flag = false;
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      flag = true;
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Ok'))
+              ],
+              title: Text('FOCO'),
+              content: const Text('MANTENHA O FOCO'),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   CountDownController _controller = CountDownController();
   bool _isPause = false;
   int timer = 2;
@@ -77,11 +124,13 @@ class _FocusModeState extends State<FocusMode> {
               setState(() {
                 if (_isPause) {
                   _isPause = false;
+
                   _controller.resume();
                 } else {
                   _isPause = true;
                   _controller.pause();
                 }
+                _controller.start();
               });
             },
             color: Colors.amber,
@@ -104,7 +153,7 @@ class _FocusModeState extends State<FocusMode> {
   }
 }
 
-Future<void> _dialogBuilder(BuildContext context) {
+Future<void> dialogBuilder(BuildContext context) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {

@@ -66,6 +66,11 @@ class CoursesManeger with ChangeNotifier {
     return _courses.where((c) => c.isFavorite == true).toList();
   }
 
+  List<Course> get activated {
+    //return ever product that has active true
+    return _courses.where((c) => c.isActive == true).toList();
+  }
+
   List<Course> get filterByPrograming {
     //return ever product that has favorite true
     return _courses
@@ -80,5 +85,10 @@ class CoursesManeger with ChangeNotifier {
 
   Course findCourseById(String id) {
     return _courses.firstWhere((element) => element.id == id);
+  }
+
+  void ActivateCourse(String id) {
+    _courses.firstWhere((element) => element.id == id).isActive = true;
+    notifyListeners();
   }
 }

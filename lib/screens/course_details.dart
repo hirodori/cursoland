@@ -89,7 +89,9 @@ class CourseDetails extends StatelessWidget {
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.only(bottom: 1.0),
                   child: VideoTile(
+                      allVideos: course.videoCourse,
                       color: course.cardColor,
+                      indexVideo: index,
                       nameVideo: course.videoCourse[index].nameVideo,
                       durationVideo: course.videoCourse[index].duration,
                       seen: course.videoCourse[index].seen),
