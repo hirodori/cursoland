@@ -13,7 +13,7 @@ class CurrentCoursesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var courses = Provider.of<CoursesManeger>(context);
-    var coursesList = courses.courses;
+    var coursesList = courses.activated;
 
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
