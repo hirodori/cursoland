@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+/*import 'package:flutter/widgets.dart';
 
 import '../course.dart';
 
@@ -11,6 +11,7 @@ class CoursesActvated extends Course {
       required this.timeSpended,
       required super.teacher,
       required super.id,
+      required super.urlImage,
       required super.descrpition,
       required super.cardColor,
       required super.name,
@@ -23,3 +24,4 @@ class CoursesActvated extends Course {
     //Duration++;
   }
 }
+*/
