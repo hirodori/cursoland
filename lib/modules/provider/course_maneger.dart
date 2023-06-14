@@ -13,7 +13,7 @@ class CoursesManeger with ChangeNotifier {
     Course(
         teacher: 'Kernel',
         descrpition: '',
-        cardColor: Colors.green,
+        cardColor: Colors.green.shade800,
         id: 'c1',
         name: 'Web desing',
         numberLecture: 10,
@@ -31,7 +31,7 @@ class CoursesManeger with ChangeNotifier {
     Course(
         teacher: 'Kernel',
         descrpition: '',
-        cardColor: Colors.green,
+        cardColor: Colors.green.shade900,
         id: 'c3',
         name: 'Python',
         numberLecture: 15,
