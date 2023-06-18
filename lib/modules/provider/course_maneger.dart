@@ -14,6 +14,7 @@ class CoursesManeger with ChangeNotifier {
     Course(
         teacher: 'Kernel',
         videoCourse: webdesign,
+        urlImage: '',
         descrpition: '',
         cardColor: Colors.green,
         id: 'c1',

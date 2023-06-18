@@ -4,10 +4,15 @@ import 'package:courseland/screens/course_overview_screen.dart';
 import 'package:courseland/screens/courses_explorer_screen.dart';
 import 'package:courseland/screens/current_courses_screen.dart';
 import 'package:courseland/screens/home_page.dart';
+import 'package:courseland/modules/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await UserPreferences.init();
+
   //lembrar de desabilitar o modo landsescape em algumas widgets
   runApp(const MyApp());
 }
