@@ -88,6 +88,9 @@ class CoursesManeger with ChangeNotifier {
   }
 
   void ActivateCourse(String id) {
+    //Encontrar o id do curso a ser ativado e
+    //logo em seguida mudar o atributo do curso.id para true
+    //e notificar o listener q esta na tela current curses
     _courses.firstWhere((element) => element.id == id).isActive = true;
     notifyListeners();
   }

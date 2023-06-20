@@ -1,3 +1,4 @@
+import 'package:courseland/screens/video_player.dart';
 import 'package:courseland/widgets/video_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -8,14 +9,21 @@ import 'course_overview_screen.dart';
  * Ele também carrega uma imagem que está linkada ao courso
  * E mostra o progresso pelo curso
  */
-class CourseDetails extends StatelessWidget {
+class CourseDetails extends StatefulWidget {
   static const routeName = 'Course-details';
   Course course;
+  int attendedClasses = 0;
+
   CourseDetails({Key? key, required this.course}) : super(key: key);
 
   @override
+  State<CourseDetails> createState() => _CourseDetailsState();
+}
+
+class _CourseDetailsState extends State<CourseDetails> {
+  @override
   Widget build(BuildContext context) {
-    var durationCourse = course.timeLectures.inMinutes.toString();
+    var durationCourse = widget.course.timeLectures.inMinutes.toString();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -34,7 +42,7 @@ class CourseDetails extends StatelessWidget {
                     width: 50,
                   ),
                   Text(
-                    course.name,
+                    widget.course.name,
                     style: TextStyle(
                         fontSize: 25, color: Color.fromARGB(255, 0, 0, 0)),
                   ),
@@ -54,6 +62,7 @@ class CourseDetails extends StatelessWidget {
             Container(
               //  width: 200,
               child: Image.network(
+                //pegar a imagem para cada curso
                 'https://storage.googleapis.com/webdesignledger.pub.network/WDL/73df7ed4-webdesignledger_featured_tools-resources.png',
               ),
             ),
@@ -62,7 +71,8 @@ class CourseDetails extends StatelessWidget {
               children: [
                 infoCourse(
                   icon: Icons.book,
-                  courseInfo: course.numberLecture.toString() + ' Lectures',
+                  courseInfo:
+                      widget.course.numberLecture.toString() + ' Lectures',
                 ),
                 infoCourse(
                   courseInfo: durationCourse + ' min',
@@ -76,29 +86,53 @@ class CourseDetails extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
                 child: LinearProgressIndicator(
                   backgroundColor: Color.fromARGB(255, 169, 169, 169),
-                  color: course.cardColor,
-                  value: 0.8,
+                  color: widget.course.cardColor,
+                  value: widget.attendedClasses / widget.course.numberLecture,
                   minHeight: 30,
                 ),
               ),
             ),
-            Container(
-              height: 350,
-              child: ListView.builder(
-                itemCount: course.videoCourse.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.only(bottom: 1.0),
-                  child: VideoTile(
-                      allVideos: course.videoCourse,
-                      color: course.cardColor,
-                      indexVideo: index,
-                      nameVideo: course.videoCourse[index].nameVideo,
-                      durationVideo: course.videoCourse[index].duration,
-                      seen: course.videoCourse[index].seen),
-                ),
-              ),
-            )
+            scrollVIdeos()
           ],
+        ),
+      ),
+    );
+  }
+
+  Container scrollVIdeos() {
+    return Container(
+      height: 350,
+      child: ListView.builder(
+        itemCount: widget.course.videoCourse.length,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.only(bottom: 1.0),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                widget.attendedClasses++;
+                //ESSA É UMA SOLUÇÃO FACIL
+                //POREM NAO MUITO CORRETA, O CERTO SERIA USAR PROVIDER
+
+                if (/*user==premium*/
+                    index == 0) {
+                  widget.course.videoCourse[index].seen = true;
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => VideoPlayer(
+                            url: widget.course.videoCourse[index].url),
+                      ));
+                } else {}
+              });
+            },
+            child: VideoTile(
+                allVideos: widget.course.videoCourse,
+                color: widget.course.cardColor,
+                indexVideo: index,
+                nameVideo: widget.course.videoCourse[index].nameVideo,
+                durationVideo: widget.course.videoCourse[index].duration,
+                seen: widget.course.videoCourse[index].seen),
+          ),
         ),
       ),
     );

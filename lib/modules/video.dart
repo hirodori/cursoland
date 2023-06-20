@@ -1,4 +1,6 @@
-class Video {
+import 'package:flutter/cupertino.dart';
+
+class Video with ChangeNotifier {
   final String url;
   final String nameVideo;
   final Duration duration;
@@ -9,4 +11,9 @@ class Video {
       required this.nameVideo,
       required this.duration,
       this.seen = false});
+
+  void checkVideo() {
+    seen = true;
+    //  notifyListeners();
+  }
 }
