@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "637205558496",
+    "project_id": "couserland",
+    "storage_bucket": "couserland.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637205558496:android:6d21e7f9050a98adba0c85",
+        "android_client_info": {
+          "package_name": "com.example.courseland"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637205558496-auipu3dm8team4nd91qc1ho5771avqu9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.courseland",
+            "certificate_hash": "436ef57e191ee028c60c384b7952292e643f6834"
+          }
+        },
+        {
+          "client_id": "637205558496-k7bdrg1b8rrn77et66kjdnqu40qcd2m4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIEoJrQSh-tyuC0D_GmeGUGLN_YbpPj5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637205558496-k7bdrg1b8rrn77et66kjdnqu40qcd2m4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
