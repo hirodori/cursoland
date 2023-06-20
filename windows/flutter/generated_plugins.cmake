@@ -3,10 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-<<<<<<< HEAD
-=======
   file_selector_windows
->>>>>>> origin/hirodori
   firebase_core
 )
 
