@@ -1,14 +1,22 @@
+import 'dart:io';
+
 import 'package:courseland/modules/course.dart';
 import 'package:courseland/modules/provider/activated_courses.dart';
+import 'package:courseland/modules/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../modules/provider/course_maneger.dart';
 
-class CoursesOverviewScreen extends StatelessWidget {
+class CoursesOverviewScreen extends StatefulWidget {
   static const routeName = '/courses-Overview';
   const CoursesOverviewScreen({Key? key}) : super(key: key);
 
+  @override
+  State<CoursesOverviewScreen> createState() => _CoursesOverviewScreenState();
+}
+
+class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     String durationCourse;
@@ -19,6 +27,12 @@ class CoursesOverviewScreen extends StatelessWidget {
     var nome = Provider.of<CoursesManeger>(context).nome;
 
     durationCourse = course.timeLectures.inMinutes.toString();
+
+    final user = UserPreferences.getUser();
+    final image = user.imagePath.contains('https://')
+        ? NetworkImage(user.imagePath)
+        : FileImage(File(user.imagePath));
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 17, 17, 17),
       body: Column(
@@ -43,9 +57,20 @@ class CoursesOverviewScreen extends StatelessWidget {
                   'Course Info',
                   style: TextStyle(fontSize: 25, color: Colors.white),
                 ),
-                const CircleAvatar(
+                /*const CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 30,
+                ),*/
+                ClipOval(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Ink.image(
+                      image: image as ImageProvider,
+                      fit: BoxFit.cover,
+                      width: 64,
+                      height: 64,
+                    ),
+                  ),
                 ),
               ],
             ),

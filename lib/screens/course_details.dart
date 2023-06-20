@@ -1,5 +1,7 @@
+import 'package:courseland/modules/user_preferences.dart';
 import 'package:courseland/widgets/video_tile.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 import '../modules/course.dart';
 import 'course_overview_screen.dart';
@@ -8,14 +10,23 @@ import 'course_overview_screen.dart';
  * Ele também carrega uma imagem que está linkada ao courso
  * E mostra o progresso pelo curso
  */
-class CourseDetails extends StatelessWidget {
+class CourseDetails extends StatefulWidget {
   static const routeName = 'Course-details';
   Course course;
   CourseDetails({Key? key, required this.course}) : super(key: key);
 
   @override
+  State<CourseDetails> createState() => _CourseDetailsState();
+}
+
+class _CourseDetailsState extends State<CourseDetails> {
+  @override
   Widget build(BuildContext context) {
-    var durationCourse = course.timeLectures.inMinutes.toString();
+    final user = UserPreferences.getUser();
+    final image = user.imagePath.contains('https://')
+        ? NetworkImage(user.imagePath)
+        : FileImage(File(user.imagePath));
+    var durationCourse = widget.course.timeLectures.inMinutes.toString();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -34,16 +45,27 @@ class CourseDetails extends StatelessWidget {
                     width: 50,
                   ),
                   Text(
-                    course.name,
+                    widget.course.name,
                     style: TextStyle(
                         fontSize: 25, color: Color.fromARGB(255, 0, 0, 0)),
                   ),
                   SizedBox(
                     width: 50,
                   ),
-                  CircleAvatar(
+                  /*CircleAvatar(
                     backgroundColor: Colors.red,
                     radius: 30,
+                  )*/
+                  ClipOval(
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Ink.image(
+                        image: image as ImageProvider,
+                        fit: BoxFit.cover,
+                        width: 64,
+                        height: 64,
+                      ),
+                    ),
                   )
                 ],
               ),
@@ -62,7 +84,8 @@ class CourseDetails extends StatelessWidget {
               children: [
                 infoCourse(
                   icon: Icons.book,
-                  courseInfo: course.numberLecture.toString() + ' Lectures',
+                  courseInfo:
+                      widget.course.numberLecture.toString() + ' Lectures',
                 ),
                 infoCourse(
                   courseInfo: durationCourse + ' min',
@@ -76,7 +99,7 @@ class CourseDetails extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
                 child: LinearProgressIndicator(
                   backgroundColor: Color.fromARGB(255, 169, 169, 169),
-                  color: course.cardColor,
+                  color: widget.course.cardColor,
                   value: 0.8,
                   minHeight: 30,
                 ),
@@ -85,16 +108,16 @@ class CourseDetails extends StatelessWidget {
             Container(
               height: 350,
               child: ListView.builder(
-                itemCount: course.videoCourse.length,
+                itemCount: widget.course.videoCourse.length,
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.only(bottom: 1.0),
                   child: VideoTile(
-                      allVideos: course.videoCourse,
-                      color: course.cardColor,
+                      allVideos: widget.course.videoCourse,
+                      color: widget.course.cardColor,
                       indexVideo: index,
-                      nameVideo: course.videoCourse[index].nameVideo,
-                      durationVideo: course.videoCourse[index].duration,
-                      seen: course.videoCourse[index].seen),
+                      nameVideo: widget.course.videoCourse[index].nameVideo,
+                      durationVideo: widget.course.videoCourse[index].duration,
+                      seen: widget.course.videoCourse[index].seen),
                 ),
               ),
             )
