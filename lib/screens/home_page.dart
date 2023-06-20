@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         backgroundColor: Color.fromARGB(255, 152, 152, 152),
-        selectedItemColor: Colors.black,
+        selectedItemColor: Color.fromARGB(255, 255, 247, 0),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Courses'),
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),

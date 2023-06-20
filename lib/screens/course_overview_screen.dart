@@ -1,5 +1,6 @@
 import 'package:courseland/modules/course.dart';
 import 'package:courseland/modules/provider/activated_courses.dart';
+import 'package:courseland/screens/course_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,6 @@ class CoursesOverviewScreen extends StatelessWidget {
     final courseId = ModalRoute.of(context)?.settings.arguments as String;
     var courseProvider = Provider.of<CoursesManeger>(context);
     var course = courseProvider.findCourseById(courseId);
-    var nome = Provider.of<CoursesManeger>(context).nome;
 
     durationCourse = course.timeLectures.inMinutes.toString();
     return Scaffold(
@@ -146,7 +146,11 @@ class CoursesOverviewScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       courseProvider.ActivateCourse(courseId);
-
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CourseDetails(course: course),
+                          ));
                       //adicionar o curso na lista de cursos em andamento
 
                       /* CoursesActvated cA = CoursesActvated();

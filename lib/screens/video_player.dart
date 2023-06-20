@@ -11,7 +11,6 @@ class VideoPlayer extends StatefulWidget {
 
 class _VideoPlayerState extends State<VideoPlayer> {
   YoutubePlayerController? _controller;
-
   @override
   void initState() {
     super.initState();
@@ -19,11 +18,20 @@ class _VideoPlayerState extends State<VideoPlayer> {
     _controller = YoutubePlayerController(
       initialVideoId: widget.url, // https://www.youtube.com/watch?v=Tb9k9_Bo-G4
       flags: YoutubePlayerFlags(
-        autoPlay: false,
-        mute: true,
-        isLive: false,
+        controlsVisibleAtStart: false,
+        hideControls: false,
+        autoPlay: true,
+        mute: false,
+        // isLive: false,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -32,11 +40,11 @@ class _VideoPlayerState extends State<VideoPlayer> {
       player: YoutubePlayer(
         controller: _controller!,
         showVideoProgressIndicator: true,
-        progressIndicatorColor: Colors.amber,
+        /*  progressIndicatorColor: Color.fromARGB(255, 255, 48, 7),
         progressColors: ProgressBarColors(
           playedColor: Colors.amber,
           handleColor: Colors.amberAccent,
-        ),
+        ),*/
       ),
       builder: (context, player) {
         return Scaffold(

@@ -20,9 +20,28 @@ class FocusMode extends StatefulWidget {
 
 class _FocusModeState extends State<FocusMode> {
   late ShakeDetector detector;
+  Color colorRing = Color.fromARGB(255, 0, 0, 0);
+  Color colorFill = Colors.grey;
+  bool isOcupade = false;
   @override
   void initState() {
+    turnOnFocusMode();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  void turnOffFocusMode() {
+    isOcupade = false;
+    _controller.reset();
+    // flag = false;
+  }
+
+  void turnOnFocusMode() {
     bool flag = true;
     userAccelerometerEvents.listen(
       (UserAccelerometerEvent event) {
@@ -30,8 +49,11 @@ class _FocusModeState extends State<FocusMode> {
         print('z' + event.z.toString());
         print('y' + event.y.toString());*/
 
-        if ((event.x > 0.5 || event.y > 0.5 || event.z > 0.5) && flag) {
+        if ((event.x > 0.5 || event.y > 0.5 || event.z > 0.5) &&
+            flag &&
+            isOcupade) {
           flag = false;
+          _controller.pause();
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -40,6 +62,9 @@ class _FocusModeState extends State<FocusMode> {
                     onPressed: () {
                       flag = true;
                       Navigator.of(context).pop();
+                      setState(() {
+                        _controller.resume();
+                      });
                     },
                     child: Text('Ok'))
               ],
@@ -52,14 +77,8 @@ class _FocusModeState extends State<FocusMode> {
     );
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
-
   CountDownController _controller = CountDownController();
-  bool _isPause = false;
+  bool _isPause = true;
   int timer = 2;
   @override
   Widget build(BuildContext context) {
@@ -67,7 +86,8 @@ class _FocusModeState extends State<FocusMode> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Timer'),
+        title: Text('Focus Mode'),
+        backgroundColor: colorFill,
         centerTitle: true,
       ),
       body: Column(
@@ -82,7 +102,7 @@ class _FocusModeState extends State<FocusMode> {
                     child: ListWheelScrollView(
                       onSelectedItemChanged: (value) {
                         timer = value;
-                        setState(() {});
+                        if (mounted) setState(() {});
                       },
                       controller: controller,
                       itemExtent: 50,
@@ -102,26 +122,55 @@ class _FocusModeState extends State<FocusMode> {
                 width: MediaQuery.of(context).size.width / 2,
                 height: MediaQuery.of(context).size.height / 2,
                 duration: timer,
-                fillColor: Colors.amber,
+                fillColor: Color.fromARGB(255, 255, 255, 255),
+                ringColor: colorRing,
+                backgroundGradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment(0.8, 1),
+                  colors: <Color>[
+                    colorRing,
+                    colorRing.withAlpha(45),
+                    colorRing.withBlue(100)
+                    //colorRing.withAlpha(45),
+                  ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                  tileMode: TileMode.mirror,
+                ),
                 controller: _controller,
                 backgroundColor: Colors.white54,
-                strokeWidth: 10.0,
+                strokeWidth: 20.0,
                 strokeCap: StrokeCap.round,
                 isTimerTextShown: true,
-                isReverse: false,
+                isReverse: true,
                 onComplete: () {
+                  turnOffFocusMode();
                   //mudar a mensagem e o estilo do dialog
                   //  _dialogBuilder(context);
                 },
                 textStyle: TextStyle(fontSize: 50.0, color: Colors.black),
-                ringColor: Colors.red,
               ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(children: [
+                preSetsTimer(20, Colors.green),
+                preSetsTimer(30, Color.fromARGB(255, 184, 227, 28)),
+                preSetsTimer(40, Color.fromARGB(255, 252, 134, 61)),
+                preSetsTimer(50, Color.fromARGB(255, 234, 87, 14)),
+                preSetsTimer(60, Color.fromARGB(255, 255, 0, 0)),
+              ]),
             ),
           ),
           MaterialButton(
             child: Icon(_isPause ? Icons.play_arrow : Icons.pause),
             onPressed: () {
               setState(() {
+                _controller.resume();
+                _isPause = false;
+              });
+              /*    setState(() {
                 if (_isPause) {
                   _isPause = false;
 
@@ -131,7 +180,7 @@ class _FocusModeState extends State<FocusMode> {
                   _controller.pause();
                 }
                 _controller.start();
-              });
+              });*/
             },
             color: Colors.amber,
           ),
@@ -150,6 +199,33 @@ class _FocusModeState extends State<FocusMode> {
         ],
       ),
     );
+  }
+
+  GestureDetector preSetsTimer(int x, Color c) {
+    return GestureDetector(
+        onTap: () {
+          isOcupade = true;
+          colorFill = c.withOpacity(0.5);
+          colorRing = c;
+
+          timer = Duration(/*minutes: x*/ seconds: 3).inSeconds;
+          setState(() {
+            _controller.restart(duration: timer);
+          });
+        },
+        child: CircleAvatar(
+          radius: 50,
+          foregroundColor: Color.fromARGB(255, 255, 255, 255),
+          child: Text(
+            '$x MIN',
+            style: TextStyle(
+              fontSize: 25,
+            ),
+            maxLines: 2,
+            textAlign: TextAlign.center,
+          ),
+          backgroundColor: c,
+        ));
   }
 }
 
