@@ -1,12 +1,24 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:courseland/modules/user.dart';
+import 'package:courseland/modules/user_preferences.dart';
+import 'package:courseland/screens/edit_profile_page.dart';
+import 'package:courseland/widgets/profile_card.dart';
 import 'package:flutter/material.dart';
+import 'package:courseland/widgets/button_widget.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
   @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  @override
   Widget build(BuildContext context) {
+    final user = UserPreferences.getUser();
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -21,33 +33,39 @@ class SettingsScreen extends StatelessWidget {
         body: ListView(
           children: [
             Container(
-              height: 200,
+              height: 300,
               color: Color.fromARGB(255, 143, 143, 143),
               child: Column(children: [
                 SizedBox(
                   height: 10,
                 ),
-                CircleAvatar(
+                /*CircleAvatar(
                   backgroundColor: Color.fromARGB(255, 21, 21, 21),
                   radius: 65,
+                ),*/
+                ProfileWidget(
+                  imagePath: user.imagePath,
+                  onClicked: () async {
+                    await Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => EditProfilePage()),
+                    );
+                    setState(() {});
+                  },
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                buildName(user),
+                const SizedBox(
+                  height: 24,
+                ),
+                Center(
+                  child: buildUpgradeButton(),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'name of user',
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      IconButton(onPressed: (() {}), icon: Icon(Icons.edit))
-                    ],
-                  ),
-                )
               ]),
             ),
             SizedBox(
@@ -78,4 +96,26 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget buildName(User user) => Column(
+        children: [
+          Text(
+            user.name,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            user.email,
+            style: TextStyle(color: Colors.black),
+          ),
+        ],
+      );
+
+  Widget buildUpgradeButton() => ButtonWidget(
+        text: 'Upgrade to Premium',
+        onClicked: () {},
+      );
 }
