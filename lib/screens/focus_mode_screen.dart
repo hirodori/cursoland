@@ -92,76 +92,48 @@ class _FocusModeState extends State<FocusMode> {
       ),
       body: Column(
         children: [
-          GestureDetector(
-            onTap: (() {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return Container(
-                    height: 200,
-                    child: ListWheelScrollView(
-                      onSelectedItemChanged: (value) {
-                        timer = value;
-                        if (mounted) setState(() {});
-                      },
-                      controller: controller,
-                      itemExtent: 50,
-                      children: List.generate(
-                        24,
-                        (index) => Text(index.toString(),
-                            style: TextStyle(fontSize: 30)),
-                      ),
-                    ),
-                  );
-                },
-              );
-            }),
-            child: Center(
-              child: CircularCountDownTimer(
-                autoStart: false,
-                width: MediaQuery.of(context).size.width / 2,
-                height: MediaQuery.of(context).size.height / 2,
-                duration: timer,
-                fillColor: Color.fromARGB(255, 255, 255, 255),
-                ringColor: colorRing,
-                backgroundGradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment(0.8, 1),
-                  colors: <Color>[
-                    colorRing,
-                    colorRing.withAlpha(45),
-                    colorRing.withBlue(100)
-                    //colorRing.withAlpha(45),
-                  ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                  tileMode: TileMode.mirror,
-                ),
-                controller: _controller,
-                backgroundColor: Colors.white54,
-                strokeWidth: 20.0,
-                strokeCap: StrokeCap.round,
-                isTimerTextShown: true,
-                isReverse: true,
-                onComplete: () {
-                  turnOffFocusMode();
-                  //mudar a mensagem e o estilo do dialog
-                  //  _dialogBuilder(context);
-                },
-                textStyle: TextStyle(fontSize: 50.0, color: Colors.black),
+          Center(
+            child: CircularCountDownTimer(
+              autoStart: false,
+              width: MediaQuery.of(context).size.width / 2,
+              height: MediaQuery.of(context).size.height / 2.5,
+              duration: timer,
+              fillColor: Color.fromARGB(255, 255, 255, 255),
+              ringColor: colorRing,
+              backgroundGradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment(0.8, 1),
+                colors: <Color>[
+                  colorRing,
+                  colorRing.withAlpha(45),
+                  colorRing.withBlue(100)
+                  //colorRing.withAlpha(45),
+                ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                tileMode: TileMode.mirror,
               ),
+              controller: _controller,
+              backgroundColor: Colors.white54,
+              strokeWidth: 20.0,
+              strokeCap: StrokeCap.round,
+              isTimerTextShown: true,
+              isReverse: true,
+              onComplete: () {
+                turnOffFocusMode();
+                //mudar a mensagem e o estilo do dialog
+                //  _dialogBuilder(context);
+              },
+              textStyle: TextStyle(fontSize: 50.0, color: Colors.black),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(children: [
-                preSetsTimer(20, Colors.green),
-                preSetsTimer(30, Color.fromARGB(255, 184, 227, 28)),
-                preSetsTimer(40, Color.fromARGB(255, 252, 134, 61)),
-                preSetsTimer(50, Color.fromARGB(255, 234, 87, 14)),
-                preSetsTimer(60, Color.fromARGB(255, 255, 0, 0)),
-              ]),
-            ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(children: [
+              preSetsTimer(20, Colors.green),
+              preSetsTimer(30, Color.fromARGB(255, 184, 227, 28)),
+              preSetsTimer(40, Color.fromARGB(255, 252, 134, 61)),
+              preSetsTimer(50, Color.fromARGB(255, 234, 87, 14)),
+              preSetsTimer(60, Color.fromARGB(255, 255, 0, 0)),
+            ]),
           ),
           MaterialButton(
             child: Icon(_isPause ? Icons.play_arrow : Icons.pause),

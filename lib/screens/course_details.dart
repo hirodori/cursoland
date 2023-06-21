@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 import 'package:courseland/screens/video_player.dart';
-=======
 import 'package:courseland/modules/user_preferences.dart';
->>>>>>> origin/hirodori
 import 'package:courseland/widgets/video_tile.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -28,13 +25,10 @@ class CourseDetails extends StatefulWidget {
 class _CourseDetailsState extends State<CourseDetails> {
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-=======
     final user = UserPreferences.getUser();
     final image = user.imagePath.contains('https://')
         ? NetworkImage(user.imagePath)
         : FileImage(File(user.imagePath));
->>>>>>> origin/hirodori
     var durationCourse = widget.course.timeLectures.inMinutes.toString();
     return Scaffold(
       body: SafeArea(
@@ -110,35 +104,12 @@ class _CourseDetailsState extends State<CourseDetails> {
                 child: LinearProgressIndicator(
                   backgroundColor: Color.fromARGB(255, 169, 169, 169),
                   color: widget.course.cardColor,
-<<<<<<< HEAD
                   value: widget.attendedClasses / widget.course.numberLecture,
-=======
-                  value: 0.8,
->>>>>>> origin/hirodori
                   minHeight: 30,
                 ),
               ),
             ),
-<<<<<<< HEAD
             scrollVIdeos()
-=======
-            Container(
-              height: 350,
-              child: ListView.builder(
-                itemCount: widget.course.videoCourse.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.only(bottom: 1.0),
-                  child: VideoTile(
-                      allVideos: widget.course.videoCourse,
-                      color: widget.course.cardColor,
-                      indexVideo: index,
-                      nameVideo: widget.course.videoCourse[index].nameVideo,
-                      durationVideo: widget.course.videoCourse[index].duration,
-                      seen: widget.course.videoCourse[index].seen),
-                ),
-              ),
-            )
->>>>>>> origin/hirodori
           ],
         ),
       ),
