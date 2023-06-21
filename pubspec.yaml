@@ -50,6 +50,7 @@ dependencies:
   path_provider: ^2.0.15
   firebase_auth: ^4.6.3
   firebase_core: ^2.14.0
+  cloud_firestore: ^4.8.1
 
 dev_dependencies:
   flutter_test:

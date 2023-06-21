@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -14,22 +15,44 @@ class RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmpasswordController = TextEditingController();
+  final _firstnameController = TextEditingController();
+  final _lastnameController = TextEditingController();
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmpasswordController.dispose();
+    _firstnameController.dispose();
+    _lastnameController.dispose();
     super.dispose();
   }
 
   Future signUp() async {
     if (passwordConfirmed()) {
+      // Criar usuário
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+
+      // Adicionar detalhes do usuário
+      addUserDetails(
+        _firstnameController.text.trim(),
+        _lastnameController.text.trim(),
+        _emailController.text.trim(),
+      );
     }
+  }
+
+  Future addUserDetails(String firstName, String lastName, String email) async {
+    await FirebaseFirestore.instance.collection('users').add(
+      {
+        'first name': firstName,
+        'last name': lastName,
+        'email': email,
+      },
+    );
   }
 
   bool passwordConfirmed() {
@@ -74,6 +97,54 @@ class RegisterPageState extends State<RegisterPage> {
                   height: 50,
                 ),
 
+                // Nome
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextField(
+                    controller: _firstnameController,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.amber),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      hintText: 'First Name',
+                      fillColor: Colors.grey[100],
+                      filled: true,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+
+                // Sobrenome
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextField(
+                    controller: _lastnameController,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.amber),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      hintText: 'Last Name',
+                      fillColor: Colors.grey[100],
+                      filled: true,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+
                 // Email
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -89,7 +160,7 @@ class RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Email',
-                      fillColor: Colors.grey,
+                      fillColor: Colors.grey[100],
                       filled: true,
                     ),
                   ),
@@ -114,7 +185,7 @@ class RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Password',
-                      fillColor: Colors.grey,
+                      fillColor: Colors.grey[100],
                       filled: true,
                     ),
                   ),
@@ -140,7 +211,7 @@ class RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Confirm Password',
-                      fillColor: Colors.grey,
+                      fillColor: Colors.grey[100],
                       filled: true,
                     ),
                   ),
