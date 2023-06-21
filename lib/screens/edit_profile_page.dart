@@ -17,13 +17,13 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  late User user;
+  late Userl user;
 
   @override
   void initState() {
     super.initState();
 
-    user = UserPreferences.getUser();
+    user = UserPreferences.UserlgetUser();
   }
 
   @override

@@ -120,7 +120,7 @@ class _FocusModeState extends State<FocusMode> {
               child: CircularCountDownTimer(
                 autoStart: false,
                 width: MediaQuery.of(context).size.width / 2,
-                height: MediaQuery.of(context).size.height / 2,
+                height: MediaQuery.of(context).size.height / 2.5,
                 duration: timer,
                 fillColor: Color.fromARGB(255, 255, 255, 255),
                 ringColor: colorRing,

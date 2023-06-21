@@ -6,15 +6,16 @@ import 'package:courseland/screens/current_courses_screen.dart';
 import 'package:courseland/screens/home_page.dart';
 import 'package:courseland/screens/login_screen.dart';
 import 'package:courseland/modules/user_preferences.dart';
+import 'package:courseland/screens/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   await UserPreferences.init();
 
   //lembrar de desabilitar o modo landsescape em algumas widgets
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
             // Notice that the counter didn't reset back to zero; the application
             // is not restarted.
             primarySwatch: Colors.amber),
-        home: HomePage(),
+        home: MainPage(),
       ),
     );
   }

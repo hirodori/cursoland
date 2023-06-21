@@ -2,11 +2,8 @@ import 'dart:io';
 
 import 'package:courseland/modules/course.dart';
 import 'package:courseland/modules/provider/activated_courses.dart';
-<<<<<<< HEAD
 import 'package:courseland/screens/course_details.dart';
-=======
 import 'package:courseland/modules/user_preferences.dart';
->>>>>>> origin/hirodori
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +28,7 @@ class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> {
 
     durationCourse = course.timeLectures.inMinutes.toString();
 
-    final user = UserPreferences.getUser();
+    final user = UserPreferences.UserlgetUser();
     final image = user.imagePath.contains('https://')
         ? NetworkImage(user.imagePath)
         : FileImage(File(user.imagePath));
