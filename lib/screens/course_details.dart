@@ -172,14 +172,15 @@ class _CourseDetailsState extends State<CourseDetails> {
           padding: const EdgeInsets.only(bottom: 1.0),
           child: GestureDetector(
             onTap: () async {
-              await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Ads(),
-                  ));
+              var isPremium = UserPreferences.getPremium();
+              if (isPremium == null || isPremium == false) {
+                await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Ads(),
+                    ));
+              }
               setState(() {
-                //if() veriicar se o usuário é premium
-
                 //ESSA É UMA SOLUÇÃO FACIL
                 //POREM NAO MUITO CORRETA, O CERTO SERIA USAR PROVIDER
 

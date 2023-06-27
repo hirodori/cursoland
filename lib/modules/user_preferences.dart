@@ -8,18 +8,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserPreferences {
   static late SharedPreferences _preferences;
   static const _keyUser = 'user';
-  //id: 'aaa',
   static const _keyCourses = 'courses';
+  static const _premium = 'premium';
   static const myUser = LocalUser(
     imagePath:
         'https://i.pinimg.com/564x/c5/9e/42/c59e4220f5710c277cfd9d0f137b13f5.jpg',
-    name: 'Random Aleatório',
-    email: 'random@gmail.com',
+    name: '',
+    email: '',
     isDarkMode: false,
   );
-  /* static List<Course> getCourses(){
-_preferences.
-  }*/
 
   static Future<List<Course>> loadCourses() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -86,11 +83,11 @@ _preferences.
     return json == null ? myUser : LocalUser.fromJson(jsonDecode(json));
   }
 
-/*
-  Stream<List<LocalUser>> readUsers() => FirebaseFirestore.instance
-      .collection('users')
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => LocalUser.fromJson(doc.data())).toList());
-*/
+  static Future setPremium(bool value) async {
+    await _preferences.setBool(_premium, value);
+  }
+
+  static bool? getPremium() {
+    return _preferences.getBool(_premium);
+  }
 }

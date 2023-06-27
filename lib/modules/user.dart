@@ -28,7 +28,7 @@ class LocalUser {
         imagePath: imagePath ?? this.imagePath,
         name: name ?? this.name,
         email: email ?? this.email,
-        isDarkMode: isDarkTheme ?? this.isDarkMode,
+        isDarkMode: isDarkMode ?? this.isDarkMode,
       );
 
   static LocalUser fromJson(Map<String, dynamic> json) => LocalUser(
