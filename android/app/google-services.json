@@ -37,7 +37,6 @@
             {
               "client_id": "637205558496-k7bdrg1b8rrn77et66kjdnqu40qcd2m4.apps.googleusercontent.com",
               "client_type": 3
-<<<<<<< HEAD
             },
             {
               "client_id": "637205558496-nujl8kmdmkshqs1hk2m6ornt5hbhf1he.apps.googleusercontent.com",
@@ -45,8 +44,6 @@
               "ios_info": {
                 "bundle_id": "com.example.courseland"
               }
-=======
->>>>>>> origin/hirodori
             }
           ]
         }

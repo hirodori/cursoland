@@ -1,8 +1,6 @@
-import 'package:courseland/screens/current_courses_screen.dart';
-import 'package:courseland/screens/home_page.dart';
 import 'package:courseland/screens/video_player.dart';
 import 'package:courseland/modules/user_preferences.dart';
-import 'package:courseland/widgets/ads_page.dart';
+>>>>>>> origin/hirodori
 import 'package:courseland/widgets/video_tile.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -27,9 +25,7 @@ class CourseDetails extends StatefulWidget {
 class _CourseDetailsState extends State<CourseDetails> {
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.getUser();
-    int attendedClasses = widget.course.watchedLeactures;
-    final c = UserPreferences.loadCourses();
+    final user = UserPreferences.UserlgetUser();
     final image = user.imagePath.contains('https://')
         ? NetworkImage(user.imagePath)
         : FileImage(File(user.imagePath));
@@ -148,8 +144,9 @@ class _CourseDetailsState extends State<CourseDetails> {
                 child: LinearProgressIndicator(
                   backgroundColor: Color.fromARGB(255, 169, 169, 169),
                   color: widget.course.cardColor,
-                  value: widget.course.watchedLeactures /
-                      widget.course.numberLecture,
+                  value: widget.attendedClasses / widget.course.numberLecture,
+                  value: 0.8,
+
                   minHeight: 30,
                 ),
               ),

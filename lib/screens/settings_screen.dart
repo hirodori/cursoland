@@ -4,6 +4,8 @@ import 'package:courseland/modules/user.dart';
 import 'package:courseland/modules/user_preferences.dart';
 import 'package:courseland/screens/edit_profile_page.dart';
 import 'package:courseland/widgets/profile_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:courseland/widgets/button_widget.dart';
 
@@ -17,7 +19,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.getUser();
+    final userl = UserPreferences.UserlgetUser();
 
     return SafeArea(
       child: Scaffold(
@@ -29,6 +31,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
             style: TextStyle(fontSize: 25),
             textAlign: TextAlign.center,
           ),
+          elevation: 0,
+          actions: [
+            IconButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+              icon: Icon(
+                CupertinoIcons.square_arrow_left,
+              ),
+            ),
+          ],
         ),
         body: ListView(
           children: [
@@ -44,7 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   radius: 65,
                 ),*/
                 ProfileWidget(
-                  imagePath: user.imagePath,
+                  imagePath: userl.imagePath,
                   onClicked: () async {
                     await Navigator.of(context).push(
                       MaterialPageRoute(
@@ -56,7 +69,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const SizedBox(
                   height: 24,
                 ),
-                buildName(user),
+                buildName(userl),
                 const SizedBox(
                   height: 24,
                 ),
@@ -97,7 +110,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget buildName(User user) => Column(
+  Widget buildName(Userl user) => Column(
         children: [
           Text(
             user.name,
