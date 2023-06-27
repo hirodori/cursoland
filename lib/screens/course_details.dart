@@ -1,5 +1,10 @@
 import 'package:courseland/screens/video_player.dart';
 import 'package:courseland/modules/user_preferences.dart';
+import 'package:courseland/screens/current_courses_screen.dart';
+import 'package:courseland/screens/home_page.dart';
+import 'package:courseland/screens/video_player.dart';
+import 'package:courseland/modules/user_preferences.dart';
+import 'package:courseland/widgets/ads_page.dart';
 import 'package:courseland/widgets/video_tile.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -14,7 +19,6 @@ import 'course_overview_screen.dart';
 class CourseDetails extends StatefulWidget {
   static const routeName = 'Course-details';
   Course course;
-  int attendedClasses = 0;
 
   CourseDetails({Key? key, required this.course}) : super(key: key);
 
@@ -26,11 +30,49 @@ class _CourseDetailsState extends State<CourseDetails> {
   @override
   Widget build(BuildContext context) {
     final user = UserPreferences.getUser();
+    int attendedClasses = widget.course.watchedLeactures;
+    final c = UserPreferences.loadCourses();
     final image = user.imagePath.contains('https://')
         ? NetworkImage(user.imagePath)
         : FileImage(File(user.imagePath));
     var durationCourse = widget.course.timeLectures.inMinutes.toString();
     return Scaffold(
+      floatingActionButton: CircleAvatar(
+        radius: 30,
+        child: IconButton(
+          icon: Icon(
+            Icons.unsubscribe,
+            color: Colors.purple,
+          ),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Cancelar')),
+                  TextButton(
+                      onPressed: () {
+                        UserPreferences.removeCourse(widget.course);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomePage(pageIndex: 0),
+                            ));
+                      },
+                      child: Text('Confirmar')),
+                ],
+                title: Text('DESINCRIÇÃO'),
+                content: const Text(
+                    'VOCÊ REALMENTE DESEJA SE DESINSCREVER DESSE CURSO'),
+              ),
+            );
+          },
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -41,7 +83,11 @@ class _CourseDetailsState extends State<CourseDetails> {
                 children: [
                   IconButton(
                       onPressed: (() {
-                        Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomePage(pageIndex: 1),
+                            ));
                       }),
                       icon: Icon(Icons.arrow_back)),
                   SizedBox(
@@ -104,7 +150,8 @@ class _CourseDetailsState extends State<CourseDetails> {
                 child: LinearProgressIndicator(
                   backgroundColor: Color.fromARGB(255, 169, 169, 169),
                   color: widget.course.cardColor,
-                  value: widget.attendedClasses / widget.course.numberLecture,
+                  value: widget.course.watchedLeactures /
+                      widget.course.numberLecture,
                   minHeight: 30,
                 ),
               ),
@@ -124,22 +171,28 @@ class _CourseDetailsState extends State<CourseDetails> {
         itemBuilder: (context, index) => Padding(
           padding: const EdgeInsets.only(bottom: 1.0),
           child: GestureDetector(
-            onTap: () {
+            onTap: () async {
+              await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Ads(),
+                  ));
               setState(() {
-                widget.attendedClasses++;
+                //if() veriicar se o usuário é premium
+
                 //ESSA É UMA SOLUÇÃO FACIL
                 //POREM NAO MUITO CORRETA, O CERTO SERIA USAR PROVIDER
 
-                if (/*user==premium*/
-                    index == 0) {
-                  widget.course.videoCourse[index].seen = true;
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => VideoPlayer(
-                            url: widget.course.videoCourse[index].url),
-                      ));
-                } else {}
+                widget.course.videoCourse[index].checkVideo();
+                widget.course.updateLeacture();
+                widget.course.updateVideo(index, widget.course.videoCourse);
+                UserPreferences.updateCourse(widget.course);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VideoPlayer(
+                          url: widget.course.videoCourse[index].url),
+                    ));
               });
             },
             child: VideoTile(

@@ -169,13 +169,28 @@ class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      courseProvider.ActivateCourse(courseId);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CourseDetails(course: course),
-                          ));
+                    onTap: () async {
+                      //     ourses.where((c) => c.isActive == true).toList();
+                      var COURSES = await UserPreferences.loadCourses();
+                      try {
+                        var auxCourse = COURSES
+                            .firstWhere((element) => element.id == courseId);
+                      } catch (e) {
+                        courseProvider.ActivateCourse(courseId);
+                        var courseToBeActivated =
+                            courseProvider.courses.firstWhere(
+                          (element) => element.id == courseId,
+                        );
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CourseDetails(course: course),
+                            ));
+                        print(e);
+                      }
+
                       //adicionar o curso na lista de cursos em andamento
 
                       /* CoursesActvated cA = CoursesActvated();
