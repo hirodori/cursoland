@@ -44,29 +44,23 @@ class ProgressCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: CircularProgressIndicator(
-                      backgroundColor: Colors.white,
-                      color: Colors.green,
-                      value: 0.8,
-                      strokeWidth: 10,
-                    ),
-                  ),
+                  Divider(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      thickness: 3,
+                      height: 50),
                   Text(
-                    "80 %",
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontSize: 41,
-                    ),
+                    'PROGRESSO',
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(30),
                     child: LinearProgressIndicator(
                       backgroundColor: Colors.white,
                       color: Colors.green,
-                      value: 0.8,
+                      value: course.watchedLeactures / course.numberLecture,
                       minHeight: 30,
                     ),
                   ),

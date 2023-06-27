@@ -16,4 +16,20 @@ class Video with ChangeNotifier {
     seen = true;
     //  notifyListeners();
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': nameVideo,
+      'url': url,
+      'duration': duration.inSeconds,
+    };
+  }
+
+  factory Video.fromJson(Map<String, dynamic> json) {
+    return Video(
+      nameVideo: json['name'],
+      url: json['url'],
+      duration: Duration(seconds: json['duration']),
+    );
+  }
 }

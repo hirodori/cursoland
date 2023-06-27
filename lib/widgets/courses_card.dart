@@ -20,6 +20,7 @@ class CoursesCard extends StatelessWidget {
     var courses = Provider.of<Course>(context);
     return GestureDetector(
       onTap: () {
+        /// if(course.id)
         Navigator.of(context)
             .pushNamed(CoursesOverviewScreen.routeName, arguments: course.id);
       },

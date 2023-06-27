@@ -1,15 +1,45 @@
+import 'package:courseland/modules/course.dart';
 import 'package:courseland/modules/provider/course_maneger.dart';
+import 'package:courseland/modules/provider/lista_de_COURSOS_AUX.dart';
 import 'package:courseland/widgets/courses_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CoursesExplorer extends StatelessWidget {
+class CoursesExplorer extends StatefulWidget {
   const CoursesExplorer({Key? key}) : super(key: key);
 
   @override
+  State<CoursesExplorer> createState() => _CoursesExplorerState();
+}
+
+class _CoursesExplorerState extends State<CoursesExplorer> {
+  late List<Course> _selectedCourses = [];
+  void initState() {
+    super.initState();
+    _selectedCourses = DUMMY_COURSES;
+  }
+
+  void _runFilter(
+    String enteredKeyword,
+  ) {
+    List<Course> results = [];
+
+    results = DUMMY_COURSES
+        .where((course) =>
+            course.name.toLowerCase().contains(enteredKeyword.toLowerCase()))
+        .toList();
+    // we use the toLowerCase() method to make it case-insensitive
+    print(results);
+    setState(() {
+      _selectedCourses = results;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var courses = Provider.of<CoursesManeger>(context);
+    /*var courses = Provider.of<CoursesManeger>(context);
     var coursesList = courses.courses;
+    _selectedCourses = coursesList;*/
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(children: [
@@ -41,7 +71,10 @@ class CoursesExplorer extends StatelessWidget {
                           height: 40,
                           width: 300,
                           color: Colors.white,
-                          child: TextFormField(
+                          child: TextField(
+                            onChanged: (value) {
+                              _runFilter(value);
+                            },
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.search),
@@ -62,11 +95,11 @@ class CoursesExplorer extends StatelessWidget {
             margin: EdgeInsets.only(top: 10),
             height: 500,
             child: ListView.builder(
-              itemCount: coursesList.length,
+              itemCount: _selectedCourses.length,
               itemBuilder: (context, index) => ChangeNotifierProvider.value(
-                value: coursesList[index],
+                value: _selectedCourses[index],
                 child: CoursesCard(
-                  course: coursesList[index],
+                  course: _selectedCourses[index],
                 ),
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:courseland/modules/course.dart';
 import 'package:courseland/modules/list_videos.dart';
+import 'package:courseland/modules/user_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class CoursesManeger with ChangeNotifier {
         videoCourse: webdesign,
         urlImage: '',
         descrpition: '',
-        cardColor: Colors.green,
+        cardColor: Color.fromARGB(255, 193, 96, 27),
         id: 'c1',
         name: 'Web desing',
         numberLecture: 10,
@@ -91,7 +92,9 @@ class CoursesManeger with ChangeNotifier {
     //Encontrar o id do curso a ser ativado e
     //logo em seguida mudar o atributo do curso.id para true
     //e notificar o listener q esta na tela current curses
-    _courses.firstWhere((element) => element.id == id).isActive = true;
+
+    // _courses.firstWhere((element) => element.id == id).isActive = true;
+    UserPreferences.setCourses(findCourseById(id));
     notifyListeners();
   }
 }

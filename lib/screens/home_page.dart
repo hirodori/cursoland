@@ -9,15 +9,18 @@ import 'package:flutter/material.dart';
 /// para as demais telas.
 /// E também possui um PageView para que usuario consiga trocar de tela ao arrastar para lado
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  int pageIndex = 0;
+  HomePage({Key? key, required this.pageIndex}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState(pageIndex);
 }
 
 class _HomePageState extends State<HomePage> {
   late PageController pc;
-  int pageIndex = 0; //primeira pagina a ser mostrada
+  int pageIndex;
+
+  _HomePageState(this.pageIndex); //primeira pagina a ser mostrada
   @override
   void initState() {
     // TODO: implement initState
