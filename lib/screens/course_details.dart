@@ -25,7 +25,7 @@ class CourseDetails extends StatefulWidget {
 class _CourseDetailsState extends State<CourseDetails> {
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.UserlgetUser();
+    final user = UserPreferences.getUser();
     final image = user.imagePath.contains('https://')
         ? NetworkImage(user.imagePath)
         : FileImage(File(user.imagePath));

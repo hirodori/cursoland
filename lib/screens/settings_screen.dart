@@ -19,7 +19,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    final userl = UserPreferences.UserlgetUser();
+    final user = UserPreferences.getUser();
 
     return SafeArea(
       child: Scaffold(
@@ -57,7 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   radius: 65,
                 ),*/
                 ProfileWidget(
-                  imagePath: userl.imagePath,
+                  imagePath: user.imagePath,
                   onClicked: () async {
                     await Navigator.of(context).push(
                       MaterialPageRoute(
@@ -69,7 +69,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const SizedBox(
                   height: 24,
                 ),
-                buildName(userl),
+                buildName(user),
                 const SizedBox(
                   height: 24,
                 ),
@@ -110,7 +110,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget buildName(Userl user) => Column(
+  Widget buildName(LocalUser user) => Column(
         children: [
           Text(
             user.name,

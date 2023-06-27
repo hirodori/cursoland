@@ -28,7 +28,7 @@ class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> {
 
     durationCourse = course.timeLectures.inMinutes.toString();
 
-    final user = UserPreferences.UserlgetUser();
+    final user = UserPreferences.getUser();
     final image = user.imagePath.contains('https://')
         ? NetworkImage(user.imagePath)
         : FileImage(File(user.imagePath));

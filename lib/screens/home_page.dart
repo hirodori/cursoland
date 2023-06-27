@@ -4,6 +4,7 @@ import 'package:courseland/screens/focus_mode_screen.dart';
 import 'package:courseland/screens/reports.dart';
 import 'package:courseland/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// Essa é a tela principal do aplicativo,onde é implementada a barra de navegação
 /// para as demais telas.
@@ -18,9 +19,23 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late PageController pc;
   int pageIndex = 0; //primeira pagina a ser mostrada
+
+  List<String> docIDs = [];
+
+  Future getDocId() async {
+    await FirebaseFirestore.instance.collection('users').get().then(
+          (snapshot) => snapshot.docs.forEach(
+            (document) {
+              docIDs.add(document.reference.id);
+            },
+          ),
+        );
+  }
+
   @override
   void initState() {
     // TODO: implement initState
+    getDocId();
     super.initState();
     pc = PageController(
         initialPage:
