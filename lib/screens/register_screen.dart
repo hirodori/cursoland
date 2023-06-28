@@ -61,17 +61,9 @@ class RegisterPageState extends State<RegisterPage> {
   }
 
   Future addUserDetails(String firstName, String lastName, String email) async {
-    /*await FirebaseFirestore.instance.collection('users').add(
-      {
-        'first name': firstName,
-        'last name': lastName,
-        'email': email,
-      },
-    );*/
     final docUser = FirebaseFirestore.instance.collection('users').doc();
 
     final user = LocalUser(
-      //id: docUser.id,
       imagePath:
           'https://i.pinimg.com/564x/c5/9e/42/c59e4220f5710c277cfd9d0f137b13f5.jpg',
       name: _firstnameController.text.trim(),
@@ -101,26 +93,26 @@ class RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
-                Text(
+                const Text(
                   'Hello, Amigos!!',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 36,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Register your account below!',
                   style: TextStyle(
                     fontSize: 24,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
 
@@ -131,11 +123,11 @@ class RegisterPageState extends State<RegisterPage> {
                     controller: _firstnameController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: const BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.amber),
+                        borderSide: const BorderSide(color: Colors.amber),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'First Name',
@@ -144,7 +136,7 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
 
@@ -155,11 +147,11 @@ class RegisterPageState extends State<RegisterPage> {
                     controller: _lastnameController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: const BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.amber),
+                        borderSide: const BorderSide(color: Colors.amber),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Last Name',
@@ -168,7 +160,7 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
 
@@ -179,11 +171,11 @@ class RegisterPageState extends State<RegisterPage> {
                     controller: _emailController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: const BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.amber),
+                        borderSide: const BorderSide(color: Colors.amber),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Email',
@@ -192,7 +184,7 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
 
@@ -204,11 +196,11 @@ class RegisterPageState extends State<RegisterPage> {
                     obscureText: true,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: const BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.amber),
+                        borderSide: const BorderSide(color: Colors.amber),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Password',
@@ -218,7 +210,7 @@ class RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
 
@@ -230,11 +222,11 @@ class RegisterPageState extends State<RegisterPage> {
                     obscureText: true,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: const BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.amber),
+                        borderSide: const BorderSide(color: Colors.amber),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Confirm Password',
@@ -243,7 +235,7 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
 
@@ -253,12 +245,12 @@ class RegisterPageState extends State<RegisterPage> {
                   child: GestureDetector(
                     onTap: signUp,
                     child: Container(
-                      padding: EdgeInsets.all(25),
+                      padding: const EdgeInsets.all(25),
                       decoration: BoxDecoration(
                         color: Colors.amber,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           'Sign Up',
                           style: TextStyle(
@@ -270,7 +262,7 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
 
@@ -278,7 +270,7 @@ class RegisterPageState extends State<RegisterPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Already a member? ',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -286,7 +278,7 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                     GestureDetector(
                       onTap: widget.showLoginPage,
-                      child: Text(
+                      child: const Text(
                         'Login now',
                         style: TextStyle(
                           color: Colors.blue,

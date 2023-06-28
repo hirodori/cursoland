@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:courseland/modules/user.dart';
+import 'package:courseland/modules/user_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -10,6 +12,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late LocalUser user;
+
+  @override
+  void initState() {
+    super.initState();
+
+    user = UserPreferences.getUser();
+  }
+
   // Controllers para o email e password
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -19,6 +30,9 @@ class _LoginPageState extends State<LoginPage> {
       email: _emailController.text.trim(),
       password: _passwordController.text.trim(),
     );
+
+    setState(() => user = user.copy(email: _emailController.text.trim()));
+    UserPreferences.setUser(user);
   }
 
   @override

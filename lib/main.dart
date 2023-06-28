@@ -1,10 +1,5 @@
 import 'package:courseland/modules/provider/course_maneger.dart';
-import 'package:courseland/screens/course_details.dart';
 import 'package:courseland/screens/course_overview_screen.dart';
-import 'package:courseland/screens/courses_explorer_screen.dart';
-import 'package:courseland/screens/current_courses_screen.dart';
-import 'package:courseland/screens/home_page.dart';
-import 'package:courseland/screens/login_screen.dart';
 import 'package:courseland/modules/user_preferences.dart';
 import 'package:courseland/screens/main_page.dart';
 import 'package:flutter/material.dart';
