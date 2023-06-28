@@ -180,7 +180,7 @@ class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> {
                         var isPremium = UserPreferences.getPremium();
                         //    if (ele for premium || (ele não for premium && cursos < 1))
                         if (isPremium == true ||
-                            ((isPremium == null || isPremium) &&
+                            ((isPremium == null || isPremium == false) &&
                                 COURSES.length == 0)) {
                           courseProvider.ActivateCourse(courseId);
                           var courseToBeActivated =
