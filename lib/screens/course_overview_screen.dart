@@ -173,22 +173,30 @@ class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> {
                       //     ourses.where((c) => c.isActive == true).toList();
                       var COURSES = await UserPreferences.loadCourses();
                       try {
+                        //verifica se existe o curso na lista
                         var auxCourse = COURSES
                             .firstWhere((element) => element.id == courseId);
                       } catch (e) {
-                        courseProvider.ActivateCourse(courseId);
-                        var courseToBeActivated =
-                            courseProvider.courses.firstWhere(
-                          (element) => element.id == courseId,
-                        );
+                        var isPremium = UserPreferences.getPremium();
+                        //    if (ele for premium || (ele não for premium && cursos < 1))
+                        if (isPremium == true ||
+                            ((isPremium == null || isPremium) &&
+                                COURSES.length == 0)) {
+                          courseProvider.ActivateCourse(courseId);
+                          var courseToBeActivated =
+                              courseProvider.courses.firstWhere(
+                            (element) => element.id == courseId,
+                          );
 
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  CourseDetails(course: course),
-                            ));
-                        print(e);
+                          // ignore: use_build_context_synchronously
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    CourseDetails(course: course),
+                              ));
+                          print(e);
+                        }
                       }
 
                       //adicionar o curso na lista de cursos em andamento
