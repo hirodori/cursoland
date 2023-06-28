@@ -93,58 +93,67 @@ class _FocusModeState extends State<FocusMode> {
   Widget build(BuildContext context) {
     var controller = ScrollController();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Focus Mode'),
-        backgroundColor: colorFill,
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          Center(
-            child: CircularCountDownTimer(
-              autoStart: false,
-              width: MediaQuery.of(context).size.width / 2,
-              height: MediaQuery.of(context).size.height / 2.5,
-              duration: timer,
-              fillColor: Color.fromARGB(255, 255, 255, 255),
-              ringColor: colorRing,
-              backgroundGradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment(0.8, 1),
-                colors: <Color>[
-                  colorRing,
-                  colorRing.withAlpha(45),
-                  colorRing.withBlue(100)
-                  //colorRing.withAlpha(45),
-                ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                tileMode: TileMode.mirror,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'FOCUS MODE',
+            style: TextStyle(
+                fontSize: 25,
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          backgroundColor: Color.fromARGB(255, 255, 0, 0),
+        ),
+        body: Column(
+          children: [
+            Center(
+              child: CircularCountDownTimer(
+                autoStart: false,
+                width: MediaQuery.of(context).size.width / 2,
+                height: MediaQuery.of(context).size.height / 2.5,
+                duration: timer,
+                fillColor: Color.fromARGB(255, 255, 255, 255),
+                ringColor: colorRing,
+                backgroundGradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment(0.8, 1),
+                  colors: <Color>[
+                    colorRing,
+                    colorRing.withAlpha(45),
+                    colorRing.withBlue(100)
+                    //colorRing.withAlpha(45),
+                  ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                  tileMode: TileMode.mirror,
+                ),
+                controller: _controller,
+                backgroundColor: Colors.white54,
+                strokeWidth: 20.0,
+                strokeCap: StrokeCap.round,
+                isTimerTextShown: true,
+                isReverse: true,
+                onComplete: () {
+                  turnOffFocusMode();
+                  //mudar a mensagem e o estilo do dialog
+                  //  _dialogBuilder(context);
+                },
+                textStyle: TextStyle(fontSize: 50.0, color: Colors.black),
               ),
-              controller: _controller,
-              backgroundColor: Colors.white54,
-              strokeWidth: 20.0,
-              strokeCap: StrokeCap.round,
-              isTimerTextShown: true,
-              isReverse: true,
-              onComplete: () {
-                turnOffFocusMode();
-                //mudar a mensagem e o estilo do dialog
-                //  _dialogBuilder(context);
-              },
-              textStyle: TextStyle(fontSize: 50.0, color: Colors.black),
             ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(children: [
-              preSetsTimer(20, Colors.green),
-              preSetsTimer(30, Color.fromARGB(255, 184, 227, 28)),
-              preSetsTimer(40, Color.fromARGB(255, 252, 134, 61)),
-              preSetsTimer(50, Color.fromARGB(255, 234, 87, 14)),
-              preSetsTimer(60, Color.fromARGB(255, 255, 0, 0)),
-            ]),
-          ),
-        ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(children: [
+                preSetsTimer(20, Colors.green),
+                preSetsTimer(30, Color.fromARGB(255, 184, 227, 28)),
+                preSetsTimer(40, Color.fromARGB(255, 252, 134, 61)),
+                preSetsTimer(50, Color.fromARGB(255, 234, 87, 14)),
+                preSetsTimer(60, Color.fromARGB(255, 255, 0, 0)),
+              ]),
+            ),
+          ],
+        ),
       ),
     );
   }

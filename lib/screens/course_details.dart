@@ -1,9 +1,6 @@
 import 'package:courseland/screens/video_player.dart';
 import 'package:courseland/modules/user_preferences.dart';
-import 'package:courseland/screens/current_courses_screen.dart';
 import 'package:courseland/screens/home_page.dart';
-import 'package:courseland/screens/video_player.dart';
-import 'package:courseland/modules/user_preferences.dart';
 import 'package:courseland/widgets/ads_page.dart';
 import 'package:courseland/widgets/video_tile.dart';
 import 'package:flutter/material.dart';
@@ -36,11 +33,13 @@ class _CourseDetailsState extends State<CourseDetails> {
         ? NetworkImage(user.imagePath)
         : FileImage(File(user.imagePath));
     var durationCourse = widget.course.timeLectures.inMinutes.toString();
+
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       floatingActionButton: CircleAvatar(
         radius: 30,
         child: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.unsubscribe,
             color: Colors.purple,
           ),
@@ -53,7 +52,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text('Cancelar')),
+                      child: const Text('Cancelar')),
                   TextButton(
                       onPressed: () {
                         UserPreferences.removeCourse(widget.course);
@@ -63,11 +62,11 @@ class _CourseDetailsState extends State<CourseDetails> {
                               builder: (context) => HomePage(pageIndex: 0),
                             ));
                       },
-                      child: Text('Confirmar')),
+                      child: const Text('Confirmar')),
                 ],
-                title: Text('DESINCRIÇÃO'),
+                title: const Text('DESINSCRIÇÃO'),
                 content: const Text(
-                    'VOCÊ REALMENTE DESEJA SE DESINSCREVER DESSE CURSO'),
+                    'VOCÊ REALMENTE DESEJA SE DESINSCREVER DESSE CURSO?'),
               ),
             );
           },
@@ -90,15 +89,15 @@ class _CourseDetailsState extends State<CourseDetails> {
                             ));
                       }),
                       icon: Icon(Icons.arrow_back)),
-                  SizedBox(
+                  const SizedBox(
                     width: 50,
                   ),
                   Text(
                     widget.course.name,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 25, color: Color.fromARGB(255, 0, 0, 0)),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 50,
                   ),
                   /*CircleAvatar(
@@ -119,7 +118,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
@@ -148,7 +147,7 @@ class _CourseDetailsState extends State<CourseDetails> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: LinearProgressIndicator(
-                  backgroundColor: Color.fromARGB(255, 169, 169, 169),
+                  backgroundColor: const Color.fromARGB(255, 169, 169, 169),
                   color: widget.course.cardColor,
                   value: widget.course.watchedLeactures /
                       widget.course.numberLecture,

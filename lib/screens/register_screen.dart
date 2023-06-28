@@ -76,7 +76,6 @@ class RegisterPageState extends State<RegisterPage> {
           'https://i.pinimg.com/564x/c5/9e/42/c59e4220f5710c277cfd9d0f137b13f5.jpg',
       name: _firstnameController.text.trim(),
       email: _emailController.text.trim(),
-      isDarkMode: false,
     );
     final json = user.toJson();
 

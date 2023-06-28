@@ -2,17 +2,20 @@ import 'dart:io';
 
 import 'package:courseland/modules/user_preferences.dart';
 import 'package:courseland/modules/user.dart';
-import 'package:courseland/widgets/appbar_widget.dart';
 import 'package:courseland/widgets/button_widget.dart';
 import 'package:courseland/widgets/profile_card.dart';
 import 'package:courseland/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
 class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({Key? key}) : super(key: key);
+
   @override
+  // ignore: library_private_types_in_public_api
   _EditProfilePageState createState() => _EditProfilePageState();
 }
 
@@ -28,10 +31,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: buildAppBar(context),
+        appBar: AppBar(
+          leading: const BackButton(
+            color: Color.fromARGB(255, 255, 255, 255),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 32),
-          physics: BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          physics: const BouncingScrollPhysics(),
           children: [
             ProfileWidget(
               imagePath: user.imagePath,
@@ -52,15 +62,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             const SizedBox(height: 24),
             TextFieldWidget(
-              label: 'Full Name',
+              label: 'Username',
               text: user.name,
               onChanged: (name) => user = user.copy(name: name),
-            ),
-            const SizedBox(height: 24),
-            TextFieldWidget(
-              label: 'Email',
-              text: user.email,
-              onChanged: (email) => user = user.copy(email: email),
             ),
             const SizedBox(
               height: 24,

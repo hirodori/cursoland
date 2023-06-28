@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:courseland/modules/course.dart';
 import 'package:courseland/modules/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,12 +9,12 @@ class UserPreferences {
   static const _keyUser = 'user';
   static const _keyCourses = 'courses';
   static const _premium = 'premium';
+  static const _darkMode = 'darkMode';
   static const myUser = LocalUser(
     imagePath:
         'https://i.pinimg.com/564x/c5/9e/42/c59e4220f5710c277cfd9d0f137b13f5.jpg',
     name: '',
     email: '',
-    isDarkMode: false,
   );
 
   static Future<List<Course>> loadCourses() async {
@@ -41,8 +40,6 @@ class UserPreferences {
     List<Course> courses = await loadCourses();
     courses.add(c);
     saveCourses(courses);
-    String json = jsonEncode(c.toJson());
-    print(json);
   }
 
   static Future<void> updateCourse(Course updatedCourse) async {
@@ -89,5 +86,13 @@ class UserPreferences {
 
   static bool? getPremium() {
     return _preferences.getBool(_premium);
+  }
+
+  static Future setDarkMode(bool value) async {
+    await _preferences.setBool(_darkMode, value);
+  }
+
+  static bool? getDarkMode() {
+    return _preferences.getBool(_darkMode);
   }
 }

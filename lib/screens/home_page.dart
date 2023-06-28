@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         onPageChanged: _setCurrentPage,
         controller: pc,
-        children: [
+        children: const [
           CoursesExplorer(),
           CurrentCoursesScreen(),
           FocusMode(),
@@ -70,8 +70,8 @@ class _HomePageState extends State<HomePage> {
         iconSize: 28,
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
-        backgroundColor: Color.fromARGB(255, 152, 152, 152),
-        selectedItemColor: Color.fromARGB(255, 255, 247, 0),
+        backgroundColor: const Color.fromARGB(255, 152, 152, 152),
+        selectedItemColor: const Color.fromARGB(255, 255, 247, 0),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Courses'),
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
         onTap: (value) {
           //Ao clicar em determinado icone, uma animação simples ocorre pra que haja a troca das telas
           pc.animateToPage(value,
-              duration: Duration(microseconds: 400), curve: Curves.ease);
+              duration: const Duration(microseconds: 400), curve: Curves.ease);
         },
         currentIndex: pageIndex,
       ),

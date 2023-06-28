@@ -1,6 +1,5 @@
 import 'package:courseland/modules/video.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class Course with ChangeNotifier {
   final String id; //ID do curso, sendo que cada um apresenta um próprio e único
