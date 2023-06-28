@@ -1,5 +1,6 @@
 import 'package:courseland/modules/course.dart';
 import 'package:courseland/modules/list_videos.dart';
+import 'package:courseland/modules/user_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,18 +15,20 @@ class CoursesManeger with ChangeNotifier {
     Course(
         teacher: 'Kernel',
         videoCourse: webdesign,
-        urlImage: '',
+        urlImage:
+            'https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Fvetores-gratis%2Fprocesso-de-trabalho-de-web-design_1284-34411.jpg%3Fw%3D2000&tbnid=5N89vQqOyi4YwM&vet=12ahUKEwihttL6urH_AhUhlpUCHQyGDkIQMygNegUIARDjAQ..i&imgrefurl=https%3A%2F%2Fbr.freepik.com%2Fvetores-gratis%2Fprocesso-de-trabalho-de-web-design_9387225.htm&docid=mTBXS9nQATwXlM&w=2000&h=2000&q=imagens%20we%20design&ved=2ahUKEwihttL6urH_AhUhlpUCHQyGDkIQMygNegUIARDjAQ',
         descrpition: '',
-        cardColor: Colors.green,
+        cardColor: Color.fromARGB(255, 193, 96, 27),
         id: 'c1',
-        name: 'Web desing',
+        name: 'Web design',
         numberLecture: 10,
         timeLectures: Duration(hours: 15),
         typeCourse: TypeCourse.Desing),
     Course(
         teacher: 'Kernel',
         videoCourse: webdesign,
-        urlImage: '',
+        urlImage:
+            'https://www.webskittersacademy.in/wp-content/uploads/2016/01/Java-As-A-Programming-Language.png',
         descrpition: '',
         cardColor: Color.fromARGB(255, 211, 203, 38),
         id: 'c2',
@@ -36,7 +39,8 @@ class CoursesManeger with ChangeNotifier {
     Course(
         teacher: 'Kernel',
         videoCourse: webdesign,
-        urlImage: '',
+        urlImage:
+            'https://miro.medium.com/v2/resize:fit:1400/1*ycIMlwgwicqlO6PcFRA-Iw.png',
         descrpition: '',
         cardColor: Colors.green.shade900,
         id: 'c3',
@@ -48,7 +52,7 @@ class CoursesManeger with ChangeNotifier {
         teacher: 'Kernel',
         videoCourse: webdesign,
         urlImage:
-            'https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Fvetores-gratis%2Fprocesso-de-trabalho-de-web-design_1284-34411.jpg%3Fw%3D2000&tbnid=5N89vQqOyi4YwM&vet=12ahUKEwihttL6urH_AhUhlpUCHQyGDkIQMygNegUIARDjAQ..i&imgrefurl=https%3A%2F%2Fbr.freepik.com%2Fvetores-gratis%2Fprocesso-de-trabalho-de-web-design_9387225.htm&docid=mTBXS9nQATwXlM&w=2000&h=2000&q=imagens%20we%20design&ved=2ahUKEwihttL6urH_AhUhlpUCHQyGDkIQMygNegUIARDjAQ',
+            'https://media.geeksforgeeks.org/wp-content/cdn-uploads/20230304231205/C-Language2.png',
         descrpition: '',
         cardColor: Color.fromARGB(255, 89, 98, 201),
         id: 'c4',
@@ -91,7 +95,9 @@ class CoursesManeger with ChangeNotifier {
     //Encontrar o id do curso a ser ativado e
     //logo em seguida mudar o atributo do curso.id para true
     //e notificar o listener q esta na tela current curses
-    _courses.firstWhere((element) => element.id == id).isActive = true;
+
+    // _courses.firstWhere((element) => element.id == id).isActive = true;
+    UserPreferences.setCourses(findCourseById(id));
     notifyListeners();
   }
 }

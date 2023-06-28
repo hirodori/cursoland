@@ -66,7 +66,16 @@ class _FocusModeState extends State<FocusMode> {
                         _controller.resume();
                       });
                     },
-                    child: Text('Ok'))
+                    child: Text('Ok')),
+                TextButton(
+                    onPressed: () {
+                      flag = true;
+                      Navigator.of(context).pop();
+                      setState(() {
+                        _controller.reset();
+                      });
+                    },
+                    child: Text('PARAR'))
               ],
               title: Text('FOCO'),
               content: const Text('MANTENHA O FOCO'),
@@ -79,44 +88,28 @@ class _FocusModeState extends State<FocusMode> {
 
   CountDownController _controller = CountDownController();
   bool _isPause = true;
-  int timer = 2;
+  int timer = 0;
   @override
   Widget build(BuildContext context) {
     var controller = ScrollController();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Focus Mode'),
-        backgroundColor: colorFill,
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          GestureDetector(
-            onTap: (() {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return Container(
-                    height: 200,
-                    child: ListWheelScrollView(
-                      onSelectedItemChanged: (value) {
-                        timer = value;
-                        if (mounted) setState(() {});
-                      },
-                      controller: controller,
-                      itemExtent: 50,
-                      children: List.generate(
-                        24,
-                        (index) => Text(index.toString(),
-                            style: TextStyle(fontSize: 30)),
-                      ),
-                    ),
-                  );
-                },
-              );
-            }),
-            child: Center(
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'FOCUS MODE',
+            style: TextStyle(
+                fontSize: 25,
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          backgroundColor: Color.fromARGB(255, 255, 0, 0),
+        ),
+        body: Column(
+          children: [
+            Center(
               child: CircularCountDownTimer(
                 autoStart: false,
                 width: MediaQuery.of(context).size.width / 2,
@@ -149,10 +142,7 @@ class _FocusModeState extends State<FocusMode> {
                 textStyle: TextStyle(fontSize: 50.0, color: Colors.black),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: SingleChildScrollView(
+            SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(children: [
                 preSetsTimer(20, Colors.green),
@@ -162,41 +152,8 @@ class _FocusModeState extends State<FocusMode> {
                 preSetsTimer(60, Color.fromARGB(255, 255, 0, 0)),
               ]),
             ),
-          ),
-          MaterialButton(
-            child: Icon(_isPause ? Icons.play_arrow : Icons.pause),
-            onPressed: () {
-              setState(() {
-                _controller.resume();
-                _isPause = false;
-              });
-              /*    setState(() {
-                if (_isPause) {
-                  _isPause = false;
-
-                  _controller.resume();
-                } else {
-                  _isPause = true;
-                  _controller.pause();
-                }
-                _controller.start();
-              });*/
-            },
-            color: Colors.amber,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          MaterialButton(
-            child: Text('Reset'),
-            color: Colors.orange,
-            onPressed: () {
-              setState(() {
-                _controller.reset();
-              });
-            },
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -208,23 +165,26 @@ class _FocusModeState extends State<FocusMode> {
           colorFill = c.withOpacity(0.5);
           colorRing = c;
 
-          timer = Duration(/*minutes: x*/ seconds: 3).inSeconds;
+          timer = Duration(/*minutes: x*/ minutes: x).inSeconds;
           setState(() {
             _controller.restart(duration: timer);
           });
         },
-        child: CircleAvatar(
-          radius: 50,
-          foregroundColor: Color.fromARGB(255, 255, 255, 255),
-          child: Text(
-            '$x MIN',
-            style: TextStyle(
-              fontSize: 25,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CircleAvatar(
+            radius: 60,
+            foregroundColor: Color.fromARGB(255, 255, 255, 255),
+            child: Text(
+              '$x MIN',
+              style: TextStyle(
+                fontSize: 25,
+              ),
+              maxLines: 2,
+              textAlign: TextAlign.center,
             ),
-            maxLines: 2,
-            textAlign: TextAlign.center,
+            backgroundColor: c,
           ),
-          backgroundColor: c,
         ));
   }
 }

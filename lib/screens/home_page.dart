@@ -10,15 +10,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 /// para as demais telas.
 /// E também possui um PageView para que usuario consiga trocar de tela ao arrastar para lado
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  int pageIndex = 0;
+  HomePage({Key? key, required this.pageIndex}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState(pageIndex);
 }
 
 class _HomePageState extends State<HomePage> {
   late PageController pc;
-  int pageIndex = 0; //primeira pagina a ser mostrada
 
   List<String> docIDs = [];
 
@@ -32,6 +32,9 @@ class _HomePageState extends State<HomePage> {
         );
   }
 
+  int pageIndex;
+
+  _HomePageState(this.pageIndex); //primeira pagina a ser mostrada
   @override
   void initState() {
     // TODO: implement initState
@@ -55,7 +58,7 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         onPageChanged: _setCurrentPage,
         controller: pc,
-        children: [
+        children: const [
           CoursesExplorer(),
           CurrentCoursesScreen(),
           FocusMode(),
@@ -67,8 +70,8 @@ class _HomePageState extends State<HomePage> {
         iconSize: 28,
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
-        backgroundColor: Color.fromARGB(255, 152, 152, 152),
-        selectedItemColor: Color.fromARGB(255, 255, 247, 0),
+        backgroundColor: const Color.fromARGB(255, 152, 152, 152),
+        selectedItemColor: const Color.fromARGB(255, 255, 247, 0),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Courses'),
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
@@ -81,7 +84,7 @@ class _HomePageState extends State<HomePage> {
         onTap: (value) {
           //Ao clicar em determinado icone, uma animação simples ocorre pra que haja a troca das telas
           pc.animateToPage(value,
-              duration: Duration(microseconds: 400), curve: Curves.ease);
+              duration: const Duration(microseconds: 400), curve: Curves.ease);
         },
         currentIndex: pageIndex,
       ),

@@ -1,8 +1,6 @@
 import 'package:courseland/screens/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'login_screen.dart';
 import 'auth_page.dart';
 
 class MainPage extends StatelessWidget {
@@ -15,9 +13,9 @@ class MainPage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return HomePage();
+            return HomePage(pageIndex: 0);
           } else {
-            return AuthPage();
+            return const AuthPage();
           }
         },
       ),
